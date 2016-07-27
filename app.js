@@ -25,32 +25,20 @@ $(document).ready(function() {
 			, 
 			function (data) {
 				display(data.items);
-				// displaySearchResults(data.items);
+				displaySearchResults(data.items);
 			}
 
 		);
 	}
 
-	// function displaySearchResults(videos) {
-	// 	var html = "";
-	// 	$.each(videos, function (index, video) {
-	// 		// append li to ul
+//search for videos by key word in the input
+	function displaySearchResults(videos) {
+		var html = "";
+		$.each(videos, function (index, video) {
+			// append li to ul
 
-	// 		console.log(video);
-	// 		console.log(video.id.videoId);
-	// 		html = html + "<li><p>" + video.snippet.title + "</p>"
-	// 			+"<a href='https://www.youtube.com/watch?v="+video.id.videoId+ "'>"
-	// 				+"<img src='" +  video.snippet.thumbnails.high.url + "'/></a></li>" ;
-
-	// 	});
-	// 	$("#content").html(html);
-	// }
-
-	function display(random) {
-		var html = '';
-
-		$.each(random, function (index, video) {
 			console.log(video);
+			console.log(video.id.videoId);
 			html = html + "<li><p>" + video.snippet.title + "</p>"
 				+"<a href='https://www.youtube.com/watch?v="+video.id.videoId+ "'>"
 					+"<img src='" +  video.snippet.thumbnails.high.url + "'/></a></li>" ;
@@ -58,30 +46,38 @@ $(document).ready(function() {
 		});
 		$("#content").html(html);
 	}
-	getResults(data.items);
+
+	$("form").submit(function (event) {
+		event.preventDefault();
+		getResults($("#search-item").val());
+	});
+
+// create random video channels
+	function display(random) {
+		var html = '';
+
+		$.each(random, function (index, video) {
+			console.log(video);
+			html = html + "<li><p>" + video.snippet.title + "</p>"
+				+"<a class='image' href='https://www.youtube.com/watch?v="+video.id.videoId+ "'>"
+					+"<img src='" +  video.snippet.thumbnails.high.url + "' height=300px/></a></li>" ;
+
+		});
+		$("#content").html(html);
+	}
+
+	getResults(random());
 
 function random() {
-		var randomN = Math.floor(Math.random() * 6);
-		console.log(video.snippet.title);
-	
-
+	var searches = ['cats', 'dogs', 'mice','pokemon', 'monga', 'game', 'music', 'pop'];
+		var randomN = Math.floor(Math.random() * searches.length);
+		return searches[randomN];		
 
 }
 
 
 
 
-
-
-
-
-
-
-
-	// $("form").submit(function (event) {
-	// 	event.preventDefault();
-	// 	getResults($("#search-item").val());
-	// });
 
 
 });
